@@ -48,14 +48,28 @@ def find_closest_sum_to_zero(arr):
     return result
 
 def get_numbers_from_user():
-    """Get numbers from user input."""
-    print("\nEnter numbers (separated by commas) or 'q' to quit:")
+    """Get numbers from user input.
+    Accepts both comma-separated numbers and array-like format with square brackets.
+    Examples:
+        - Comma-separated: 1,2,3,-4,5
+        - Array format: [1,2,3,-4,5] or [-8, 4, 5, -10, 3]
+    """
+    print("\nEnter numbers in one of these formats:")
+    print("- Comma-separated: 1,2,3,-4,5")
+    print("- Array format: [1,2,3,-4,5] or [-8, 4, 5, -10, 3]")
+    print("Or enter 'q' to quit:")
+    
     while True:
         user_input = input("> ").strip()
         if user_input.lower() == 'q':
             return None
         
         try:
+            # Handle array-like format
+            if user_input.startswith('[') and user_input.endswith(']'):
+                # Remove brackets and split by comma
+                user_input = user_input[1:-1]
+            
             # Convert input string to list of integers, handling comma separation
             numbers = [int(x.strip()) for x in user_input.split(',')]
             if len(numbers) < 2:
@@ -63,7 +77,9 @@ def get_numbers_from_user():
                 continue
             return numbers
         except ValueError:
-            print("Invalid input! Please enter numbers separated by commas (e.g., 1,2,3,-4,5)")
+            print("Invalid input! Please enter numbers in one of these formats:")
+            print("- Comma-separated: 1,2,3,-4,5")
+            print("- Array format: [1,2,3,-4,5] or [-8, 4, 5, -10, 3]")
 
 # Example usage
 if __name__ == "__main__":
